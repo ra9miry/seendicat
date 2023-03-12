@@ -1,0 +1,20 @@
+{% extends "../base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block title %}Кіру{% endblock %}
+
+{% block content %}
+<div class="container mx-auto">
+    <div class="card w-100 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title mb-5" style="font-size: 32px;">Кіру</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+                <p class="mb-5">Егер сізде аккаунт болмаса, <a href="{% url "users:signUp" %}" class="link link-primary">осы сілтемеге өтіңіз</a></p>
+              <button class="btn btn-success">Кіру</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

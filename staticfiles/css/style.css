@@ -1,0 +1,31 @@
+.main-content {
+    padding: 120px 0;
+    background-color: #ffffff;
+}
+.main-content h1 {
+    font-size: 45px;
+}
+
+.default-title {
+    font-size: 28px;
+    font-weight: 700;
+}
+.price {
+    color: #5dd2b3;
+    font-size: 24px;
+    font-weight: 400;
+}
+.description {
+    font-size: 20px;
+    font-weight: 400;
+    text-align: justify;
+}
+.sign-up-login {
+    padding: 20px 0;
+}
+.functions {
+    font-size: 30px;
+}
+.functions a {
+    margin-right: 10px;
+}

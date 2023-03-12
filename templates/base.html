@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="kz" data-theme="corporate">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header class="navbar bg-primary text-neutral-content shadow mb-10">
+        <div class="flex-1">
+          <a href="" class="btn btn-ghost normal-case text-xl">apteka.kz</a>
+        </div>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1">
+                <li><a href="{% url "catalog:homePage" %}">Басты бет</a></li>
+                <li><a href="{% url "catalog:store_home" %}">Тауарлар</a></li>
+                {% if not user.is_authenticated %}
+                <li><a href="{% url "users:loginPage" %}">Кіру</a></li>
+                <li><a href="{% url "users:signUp" %}">Тіркелу</a></li>
+                {% endif %}
+            </ul>
+          {% if user.is_authenticated %}
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                  {% with cart_items=cart|length %}
+                <span class="badge badge-sm indicator-item" id="cart-qty">{{ cart_items }}</span>
+                  {% endwith %}
+
+              </div>
+            </label>
+            <div tabindex="0" class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
+              <div class="card-body">
+                <div class="card-actions">
+                  <a href="{% url 'orders:cart_summary' %}" class="btn btn btn-primary btn-block">Себетті қарау</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img src="{% static './images/logo.png' %}" width="16px" alt="Logo">
+              </div>
+            </label>
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              {% if user.is_superuser %}
+              <li><a href="{% url 'admin:index' %}" class="btn btn-primary mb-2">Админ панель</a></li>
+              {% endif %}
+              <li><a href="{% url 'users:logoutUser' %}" class="btn btn-error">{{ user.username }} : Шығу</a></li>
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+    <script>
+         const addToCart = (productId) => {
+        let selectQuantity = document.getElementById('select-qty-' + productId);
+        let quantity = selectQuantity.value;
+
+        console.log("Se está seleccionando el producto: " + productId + " para añadirlo al carrito con: " + quantity + " unid.");
+
+        let data = {
+            product_id: productId,
+            quantity
+        }
+
+        fetch("{% url 'orders:cart_add' %}", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {  "Content-type": "application/json; charset=UTF-8",
+                        "X-CSRFToken": "{{csrf_token}}"}
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("cart-qty").innerHTML = data.total_items;
+        });
+    }
+
+    </script>
+</body>
+</html>

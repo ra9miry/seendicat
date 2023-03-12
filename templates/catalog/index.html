@@ -1,0 +1,18 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}Басты бет{% endblock %}
+
+{% block content %}    
+    <div class="hero bg-base-100">
+        <div class="hero-content flex-col lg:flex-row">
+          <img src="{% static './images/alternate.jpg' %}" class="max-w-sm rounded-lg shadow-2xl mr-10" />
+          <div>
+            <h1 class="text-5xl font-bold">Интернет-дәріхана apteka.kz</h1>
+            <p class="py-6" style="text-align: justify;">
+                Дәрі-дәрмектерге, медициналық мақсаттағы бұйымдарға, балаларға, аналарға, косметикаға және өмірді жеңілдететін заттарға Онлайн тапсырыс беру.
+            </p>
+            <a href="{% url "catalog:store_home" %}" class="btn btn-primary">Тауарларды қарау</a>
+          </div>
+        </div>
+    </div>
+{% endblock %}

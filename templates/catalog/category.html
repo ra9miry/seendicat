@@ -1,0 +1,62 @@
+{% extends "../base.html" %}
+{% block title %}{% endblock %}
+
+{% block content %}    
+    <div class="container mx-auto">
+        <div class="container mx-auto">
+          <div class="text-sm breadcrumbs mb-20">
+            <ul>
+              <li><a href="{% url "catalog:homePage" %}">Артқа</a></li>
+              <li><a href="{% url "catalog:store_home" %}">Тауарлар</a></li>
+              <li>{{ category.name|title }}</li>
+            </ul>
+        </div>
+        <h2 class="default-title mb-10">{{ category.name|title }}</h2>
+            <div class="grid grid-cols-4 gap-4">
+                {% for product in products %}
+                <div class="card card-compact mb-8 bg-base-100 shadow-xl">
+                    <figure><img src="{{ product.image.url }}" alt="{{ product.name }}" width="200px"/></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ product.name }}</h2>
+                            <h4>Категория: <div class="badge badge badge-outline mb-2">{{ product.category }}</div></h4>
+                            <h4>Бағасы: <div class="badge badge-primary mb-2">{{ product.price }} теңге</div></h4>
+                            <label for="select-qty-{{product.id}}" style="font-size: 20px; font-weight: 700;">Дана</label>
+                            <select id="select-qty-{{product.id}}" class="select select-success w-100">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button onclick="addToCart('{{product.id}}')" class="btn btn-success">Себетке қосу</button>
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-success">Қарау</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
+
+        <script>
+    const addToCart = (productId) => {
+        let selectQuantity = document.getElementById('select-qty-' + productId);
+        let quantity = selectQuantity.value;
+
+        let data = {
+            product_id: productId,
+            quantity
+        }
+
+        fetch("{% url 'orders:cart_add' %}", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {  "Content-type": "application/json; charset=UTF-8",
+                        "X-CSRFToken": "{{csrf_token}}"}
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById("cart-qty").innerHTML = data.total_items;
+        });
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "../base.html" %}
+{% load static %}
+{% load tailwind_filters %}
+{% block title %}Тіркелу{% endblock %}
+
+{% block content %}
+<style>
+    #hint_id_username, #hint_id_password1, #hint_id_password2 {
+        display: none;
+    }
+</style>
+<div class="container mx-auto">
+    <div class="card w-100 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title mb-5" style="font-size: 32px;">Тіркелу</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+                <p class="mb-5">Егер сізде аккаунт бар болса, <a href="{% url "users:loginPage" %}" class="link link-primary">осы сілтемеге өтіңіз</a></p>
+              <button class="btn btn-primary">Тіркелу</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

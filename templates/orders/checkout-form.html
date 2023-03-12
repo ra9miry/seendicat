@@ -1,0 +1,58 @@
+<div id="order" class="card w-100 mb-10 bg-primary shadow-xl">
+    <div class="card-body">
+        <form>
+            <h1 class="mb-10" style="font-size: 30px; font-weight: 700; color: #dae1fc;">Тапсырыс қалдыру</h1>
+            <div class="form-control">
+                <label for="fullname" style="color: #dae1fc;">Есіміңіз: </label>
+                <input type="text" class="input input-bordered" id="fullname" placeholder="Аты">
+            </div>
+            <div class="form-control">
+                <label for="email" style="color: #dae1fc;">Электронды пошта: </label>
+                <input type="email" class="input input-bordered" id="email" placeholder="Электронды пошта">
+            </div>
+            <div class="form-control">
+                <label for="city" style="color: #dae1fc;">Қала:</label>
+                <input type="text" class="input input-bordered" id="city" placeholder="Қала">
+            </div>
+            <div class="form-control">
+                <label for="address" style="color: #dae1fc;">Мекен-жайы:</label>
+                <input type="text" class="input input-bordered" id="address" placeholder="Мекен-жайы">
+            </div>
+            <div class="form-control">
+                <label for="phone" style="color: #dae1fc;">Телефон:</label>
+                <input type="text" class="input input-bordered" id="phone" placeholder="Телефон" maxlength="10">
+            </div>
+            <button class="btn btn-ghost btn-active mt-5" onclick="processOrder()">Тапсырыс қалдыру</button>
+        </form>
+    </div>
+</div>
+<script>
+    const processOrder = () => {
+
+        let full_name = document.getElementById('fullname').value;
+        let email = document.getElementById('email').value;
+        let city = document.getElementById('city').value;
+        let address = document.getElementById('address').value;
+        let phone = document.getElementById('phone').value;
+
+        let data = {
+            full_name: full_name,
+            email: email,
+            city: city,
+            address: address,
+            phone: phone,
+        }
+        fetch("{% url 'orders:process_order' %}", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {  "Content-type": "application/json; charset=UTF-8",
+                        "X-CSRFToken": "{{csrf_token}}"}
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert('Сіздің тапсырыңыз өңделуде. Тапсырысты растау барысында жақын уақытта менеджер Сізге хабарласады.');
+            window.location.href = "{% url 'catalog:homePage' %}"
+        });
+    }
+
+</script>
