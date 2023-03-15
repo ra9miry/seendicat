@@ -11,7 +11,7 @@ def signUp(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Тіркелу сәтті өтті!")
-            return redirect("catalog:loginPage")
+            return redirect("users:loginPage")
         messages.error(request, "Тіркелу барысында қателіктер пайда болды")
     else:
         form = NewUserForm()
