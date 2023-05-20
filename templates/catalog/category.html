@@ -6,8 +6,8 @@
         <div class="container mx-auto">
           <div class="text-sm breadcrumbs mb-20">
             <ul>
-              <li><a href="{% url "catalog:homePage" %}">Артқа</a></li>
-              <li><a href="{% url "catalog:store_home" %}">Тауарлар</a></li>
+              <li><a href="{% url "catalog:homePage" %}">Назад</a></li>
+              <li><a href="{% url "catalog:store_home" %}">Товары</a></li>
               <li>{{ category.name|title }}</li>
             </ul>
         </div>
@@ -15,21 +15,23 @@
             <div class="grid grid-cols-4 gap-4">
                 {% for product in products %}
                 <div class="card card-compact mb-8 bg-base-100 shadow-xl">
-                    <figure><img src="{{ product.image.url }}" alt="{{ product.name }}" width="200px"/></figure>
+                    <div class="image">
+                    <figure><img src="{{ product.image.url }}" alt="{{ product.name }}" width="280px" style="border-radius: 10px;"></figure>
+                    </div>
                     <div class="card-body">
                         <h2 class="card-title">{{ product.name }}</h2>
-                            <h4>Категория: <div class="badge badge badge-outline mb-2">{{ product.category }}</div></h4>
-                            <h4>Бағасы: <div class="badge badge-primary mb-2">{{ product.price }} теңге</div></h4>
-                            <label for="select-qty-{{product.id}}" style="font-size: 20px; font-weight: 700;">Дана</label>
-                            <select id="select-qty-{{product.id}}" class="select select-success w-100">
+                            <h4 style="font-size: 16px; font-family: Verdana;">Категория: <div class="badge badge badge-outline mb-2">{{ product.category }}</div></h4>
+                            <p style="font-size: 16px; font-family: Verdana;">Цена: <div class="badge badge-primary mb-2">{{ product.price }} тенге</div></p>
+                            <label for="select-qty-{{product.id}}" style="font-size: 20px; font-weight: 700;">Штук</label>
+                            <select id="select-qty-{{product.id}}" class="select select-success w-100" style="border: none; border-radius: 8px; margin-top: 10px; margin-bottom: 10px;">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            <button onclick="addToCart('{{product.id}}')" class="btn btn-success">Себетке қосу</button>
-                            <a href="{{ product.get_absolute_url }}" class="btn btn-success">Қарау</a>
+                            <button onclick="addToCart('{{product.id}}')" class="btn btn-success" style="background-color: black; color: white; border:none; border-radius: 8px;">Добавить в корзину</button>
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-success" style="background-color: black; color: white; border:none; border-radius: 8px;">Смотреть</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -58,5 +60,32 @@
         });
     }
 </script>
+<style>
+    .text-sm{
+        margin-left: 30px;
+    }
+    .default-title{
+        margin-left: 40px;
+        margin-top: -60px;
+    }
+    .card{
+        margin-left: 30px;
+        border-radius: 10px;
+        background-color: rgb(231, 232, 231);
+        margin-top: -10px;
+    }
 
+    .image{
+        margin-top: 30px;
+        border-radius: 20px;
+    }
+
+    .badge{
+        background-color: black;
+        color: white;
+        border-radius: 6px;
+        border: none;
+    }
+    
+</style>
 {% endblock %}

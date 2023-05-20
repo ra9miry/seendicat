@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=40)),
                 ('city', models.CharField(max_length=30)),
                 ('address', models.CharField(max_length=120)),
-                ('phone', models.CharField(max_length=10)),
+                ('phone', models.CharField(max_length=12)),
                 ('total', models.DecimalField(decimal_places=2, max_digits=9)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),

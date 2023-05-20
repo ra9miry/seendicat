@@ -1,31 +1,38 @@
-<div id="order" class="card w-100 mb-10 bg-primary shadow-xl">
-    <div class="card-body">
-        <form>
-            <h1 class="mb-10" style="font-size: 30px; font-weight: 700; color: #dae1fc;">Тапсырыс қалдыру</h1>
-            <div class="form-control">
-                <label for="fullname" style="color: #dae1fc;">Есіміңіз: </label>
-                <input type="text" class="input input-bordered" id="fullname" placeholder="Аты">
+<div id="order" class="card w-100 mb-10 bg-primary shadow-xl" style="margin-left: 30px; margin-right: 30px; border-radius: 12px;">
+    <div class="card-body" style="border-radius: 12px;">
+        <form class="delivery-form">
+            <h1 class="form-title">Форма доставки</h1>
+            <div class="form-section">
+                <h2 class="form-section-title">Контактная информация</h2>
+                <div class="form-control">
+                    <label for="fullname">ФИО:</label>
+                    <input type="text" class="input input-bordered" id="fullname" placeholder="Имя">
+                </div>
+                <div class="form-control">
+                    <label for="email">Электронная почта:</label>
+                    <input type="email" class="input input-bordered" id="email" placeholder="Электронная почта">
+                </div>
+                <div class="form-control">
+                    <label for="phone">Номер телефона:</label>
+                    <input type="text" class="input input-bordered" id="phone" placeholder="Телефон" maxlength="10">
+                </div>
             </div>
-            <div class="form-control">
-                <label for="email" style="color: #dae1fc;">Электронды пошта: </label>
-                <input type="email" class="input input-bordered" id="email" placeholder="Электронды пошта">
+            <div class="form-section">
+                <h2 class="form-section-title">Адрес доставки</h2>
+                <div class="form-control">
+                    <label for="city">Город, район города:</label>
+                    <input type="text" class="input input-bordered" id="city" placeholder="Бостандыкский район">
+                </div>
+                <div class="form-control">
+                    <label for="address">Адрес:</label>
+                    <input type="text" class="input input-bordered" id="address" placeholder="Адрес доставки">
+                </div>
             </div>
-            <div class="form-control">
-                <label for="city" style="color: #dae1fc;">Қала:</label>
-                <input type="text" class="input input-bordered" id="city" placeholder="Қала">
-            </div>
-            <div class="form-control">
-                <label for="address" style="color: #dae1fc;">Мекен-жайы:</label>
-                <input type="text" class="input input-bordered" id="address" placeholder="Мекен-жайы">
-            </div>
-            <div class="form-control">
-                <label for="phone" style="color: #dae1fc;">Телефон:</label>
-                <input type="text" class="input input-bordered" id="phone" placeholder="Телефон" maxlength="10">
-            </div>
-            <button class="btn btn-ghost btn-active mt-5" onclick="processOrder()">Тапсырыс қалдыру</button>
+            <button class="btn btn-ghost btn-active" onclick="processOrder()">Заказать</button>
         </form>
     </div>
 </div>
+
 <script>
     const processOrder = () => {
 
@@ -50,9 +57,64 @@
         })
         .then(res => res.json())
         .then(data => {
-            alert('Сіздің тапсырыңыз өңделуде. Тапсырысты растау барысында жақын уақытта менеджер Сізге хабарласады.');
+            alert('Ваш заказ утвержден! менеджеры с вами свяжуться.');
             window.location.href = "{% url 'catalog:homePage' %}"
         });
     }
 
+
 </script>
+
+<style>
+
+    .card-body{
+        background-color: #ccc;
+    }
+
+    .delivery-form {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.form-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #000000;
+    font-family: Verdana;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+.form-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+label {
+    color: #000000;
+    display: block;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+</style>

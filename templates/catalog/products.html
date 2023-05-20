@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% load static %}
-{% block title %}Тауарлар{% endblock %}
+{% block title %}Товары{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
@@ -8,20 +8,21 @@
     <div class="container mx-auto">
         <div class="text-sm breadcrumbs mb-10">
             <ul>
-                <li><a href="{% url "catalog:homePage" %}">Артқа</a></li>
-                <li>Тауарлар</li>
+                <li><a href="{% url "catalog:homePage" %}">Назад</a></li>
+                <li>Товары</li>
             </ul>
         </div>
+
         <div class="grid grid-cols-3 gap-4">
             <div class="mr-10">
-                <div class="card bg-primary shadow-xl">
+                <div class="card1 bg-primary shadow-xl">
                     <div class="card-body">
-                        <h2 class="default-title" style="color: #dae1fc;">Іздеу</h2>
+                        <h2 class="default-title" style="color: #ffffff;">Поиск</h2>
                         <form action="{% url "catalog:store_home" %}">
                             <div class="form-control">
                                 <div class="input-group">
-                                    <input type="search" name="search" placeholder="Дәрі атауы" class="input input-bordered w-96"/>
-                                    <button class="btn btn-active btn-primary">
+                                    <input type="search" name="search" placeholder="Название товара" class="input input-bordered w-96" style="border-radius: 8px; "/>
+                                    <button class="btn btn-primary" style="border: none; border-radius: 6px; background-color: rgb(53, 53, 53); color: white;">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                              viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -31,29 +32,31 @@
                                 </div>
                             </div>
                         </form>
-                        <h2 class="default-title" style="color: #dae1fc;">Категориялар</h2>
+                        <h2 class="default-title" style="color: #ffffff;">Категории</h2>
                         {% for category in categories %}
                             <a href="{{ category.get_absolute_url }}">
-                                <div class="badge text-neutral-content badge-outline mb-2">{{ category.name }}</div>
+                                <div class="badge text-neutral-content badge-outline mb-2" style="color: white;">{{ category.name }}</div>
                             </a>
                         {% endfor %}
                     </div>
                 </div>
             </div>
             <div class="col-span-2">
-                <div class="card bg-primary">
+                <div class="card2 bg-primary">
                     <div class="card-body">
-                        <h2 class="default-title mb-5" style="color: #dae1fc;">Тауарлар</h2>
+                        <h2 class="default-title mb-5" style="color: #ffffff;">Товары</h2>
                 <div class="grid grid-cols-2 gap-2">
                     {% for product in products %}
-                    <div class="card card-compact mb-8 bg-base-100 shadow-xl">
-                        <figure><img src="{{ product.image.url }}" alt="{{ product.name }}" width="150px" height="150px"/></figure>
-                        <div class="card-body">
+                    <div class="card3 card-compact mb-8 bg-base-100 shadow-xl">
+                        <div class="card-body rounded shadow">
+                            <figure>
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="280px" height="350px" class="rounded" >
+                            </figure>
                             <h2 class="card-title">{{ product.name }}</h2>
-                            <h4>Категория: <div class="badge badge badge-outline mb-2">{{ product.category }}</div></h4>
-                            <h4>Бағасы: <div class="badge badge-primary mb-2">{{ product.price }} теңге</div></h4>
-                            <label for="select-qty-{{product.id}}" style="font-size: 20px; font-weight: 700;">Дана</label>
-                            <select id="select-qty-{{product.id}}" class="select select-primary w-100">
+                            <p>Категория: <span class="badge1 badge badge-outline">{{ product.category }}</span></p>
+                            <p>Цена: <span class="badge2 badge-primary">{{ product.price }} тенге</span></p>
+                            <label for="select-qty-{{product.id}}">Штук</label>
+                            <select id="select-qty-{{product.id}}" class="select select-primary w-100" style="border-radius: 8px; border-color: #000;">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -61,13 +64,17 @@
                                 <option value="5">5</option>
                             </select>
                             <div class="grid grid-cols-2 gap-2">
-                                <button onclick="addToCart('{{product.id}}')" class="btn btn-primary">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                <button onclick="addToCart('{{product.id}}')" class="btn btn-primary rounded-pill" style="border-radius: 8px; border:none; color: white;">
+                                
+                                    Добавить в корзину
                                 </button>
-                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Қарау</a>
+                                <div class="full">
+                                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary rounded-pill" style="border-radius: 8px; border:none; color: white;">Смотреть полностью</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
                     {% endfor %}
                 </div>
                     </div>
@@ -77,11 +84,11 @@
     </div>
 </div>
 {% else %}
-<div class="container mx-auto">
+<div class="container">
     <div class="alert alert-error shadow-lg">
   <div>
     <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span>Тауарларды қарау үшін және оларға тапсырыс беру үшін, жүйеге тіркеліңіз немесе кіріңіз.</span>
+    <span>Для того, чтобы заказать или рассмотреть каталог, нужно войти или зарегистрироваться!</span>
   </div>
 </div>
 </div>
@@ -108,4 +115,83 @@
         });
     }
 </script>
+<style>  
+    .text-sm{
+        margin-left: 25px;
+        margin-top: -10px;
+    }
+
+    .card1{
+        margin-left: 20px;
+        border-radius: 10px;
+        background-color: rgb(53, 53, 53);
+        margin-top: -10px;
+    }
+    .card2{
+        margin-right: 25px;
+        border-radius: 10px;
+        margin-left: -10px;
+        background-color: rgb(53, 53, 53);
+        margin-top: -10px;
+    } 
+
+    .card3{
+        width: 450px;
+        height: auto;
+        margin-left: 10px;
+        border-radius: 15px;
+    }
+    .label{
+        font-size: 20px;
+        font-weight: 700;
+        border-radius: 8px;
+    }
+    figure{
+        display: flex;
+        justify-content: center; 
+        align-items: flex-start;
+        margin: 0%;
+    }
+
+    .full{
+        margin-left: 5px;
+    }
+
+    .badge{
+        color: #000;
+        border: none;
+        font-family: Verdana;
+        font-size: 15px;
+    }
+    .badge1 {
+        padding: 4px 8px;
+        font-size: 12px;
+        background-color: #fff;
+        color: #000;
+        border-radius: 4px;
+        border: 1px solid #000;
+    }
+
+    .badge2 {
+        padding: 4px 8px;
+        font-size: 12px;
+        background-color: #000;
+        color: #fff;
+        border-radius: 4px;
+    }
+
+
+    .btn{
+        background-color: #000000;
+    }
+
+    btn btn-primary{
+        border-radius: 10px;
+    }
+
+    .btn:hover{
+        background-color: #6c6c6a;
+    }
+
+</style>
 {% endblock %}

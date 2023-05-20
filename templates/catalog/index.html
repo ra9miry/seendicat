@@ -1,30 +1,316 @@
 {% extends "../base.html" %}
 {% load static %}
-{% block title %}Басты бет{% endblock %}
+{% block title %}Главная страница{% endblock %}
 
 {% block content %}
-     <div class="container mx-auto">
-          {% if messages %}
-        <div class="alert alert-primary shadow-lg">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span>{% for message in messages %}
-                        {{ message }}
-                    {% endfor %}</span>
+<div class="container">
+  <div class="flex justify-between">
+    <div class="card1 w-96 bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h3 class="card-title">Товары недели!</h3>
+        <div>
+          <div class="badge badge-secondary">NEW</div>
+          <div class="carousel w-full">
+            <div id="item1" class="carousel-item w-full">
+              <img src="/static/images/seendimain.jpg" class="w-full" />
+            </div> 
+            <div id="item2" class="carousel-item w-full">
+              <img src="/static/images/mainn.jpg" class="w-full" />
+            </div> 
+            <div id="item3" class="carousel-item w-full">
+              <img src="/static/images/main3.jpg" class="w-full" />
+            </div> 
+            <div id="item4" class="carousel-item w-full">
+              <img src="/static/images/main5.jpg" class="w-full" />
+            </div>  
+          </div> 
+          <div class="flex justify-center w-full py-2 gap-2">
+            <a href="#item1" class="btn btn-primary">1</a> 
+            <a href="#item2" class="btn btn-primary">2</a> 
+            <a href="#item3" class="btn btn-primary">3</a> 
+            <a href="#item4" class="btn btn-primary">4</a>
           </div>
         </div>
-        {% endif %}
-     </div>
-    <div class="hero bg-base-100">
-        <div class="hero-content flex-col lg:flex-row">
-          <img src="{% static './images/alternate.jpg' %}" class="max-w-sm rounded-lg shadow-2xl mr-10" />
-          <div>
-            <h1 class="text-5xl font-bold">Интернет-дәріхана apteka.kz</h1>
-            <p class="py-6" style="text-align: justify;">
-                Дәрі-дәрмектерге, медициналық мақсаттағы бұйымдарға, балаларға, аналарға, косметикаға және өмірді жеңілдететін заттарға Онлайн тапсырыс беру.
-            </p>
-            <a href="{% url "catalog:store_home" %}" class="btn btn-primary">Тауарларды қарау</a>
-          </div>
-        </div>
+      </div>
     </div>
+
+    <div class="card2 lg:card-side bg-base-100 shadow-xl">
+      <figure class="image-container">
+        <img src="/static/images/seenmain.jpg" alt="seen" class="seen-image"/>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">Seendicat: Откройте свой стиль с нами!</h2>
+        <div class="card-text" >
+          <p style="font-family: calibri;">‌ОДЕВАТЬСЯ СТИЛЬНО — НЕ ЗНАЧИТ ДОРОГО!
+            ‌ПОКУПАЙ С УМОМ В SEENDICAT!</p>
+        </div>
+        <div class="text-graphic">
+          <p>Алматы:</p>
+          <p>◾️ТД Мерей</p>
+          <p>◾️ТД Пассаж</p>
+          <p>◾️ ТЦ Москва</p>
+          <p>◾️ТЦ Спутник</p>
+          <p>🛵Доставка до дома</p>
+          <p>График: 10:00 до 21:00 🕘</p>
+        </div>
+          <div class="card-actions justify-end">
+            <div class="btn-seen">
+              <a href="{% url "catalog:store_home" %}" class="btn btn-primary">Seendicat</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: -20px;
+}
+
+.card1 {
+  width: 380px;
+  height: 630px;
+  background-color: rgb(255, 231, 126);
+  box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-left: 30px;
+  display: flex;
+  padding: 20px;
+  animation: slideInLeft 1s ease-in-out;
+}
+
+.card2 {
+  width: 1050px;
+  height: 630px;
+  background-color: rgb(255, 231, 126);
+  box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-left: 30px;
+  display: flex;
+  padding: 20px;
+  animation: slideInRight 1s ease-in-out;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.card-body {
+  padding: 0px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.text-graphic{
+  margin: 10px;
+  font-family: Verdana; 
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+
+.card-title {
+  font-size: 20px;
+  margin-bottom: 8px;
+  margin-left: 10px;
+  font-family: Verdana; 
+  font-weight: normal; 
+  font-style: normal; 
+  text-decoration: none;
+}
+
+.card-text{
+  font-size: 15px;
+  margin: 10px;
+  font-family: 'Gill Sans'; 
+  font-weight: normal; 
+  font-style: normal; 
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  margin-left: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #000000;
+  color: white;
+  margin-top: 10px;
+  border-radius: 30px;
+}
+
+.btn-primary:hover {
+  background-color: #6c6c6a;
+}
+
+.btn-seen a {
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-seen a::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  z-index: -1;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn-seen a:hover::before {
+  opacity: 1;
+}
+
+.carousel {
+  position: relative;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.carousel-item {
+  scroll-snap-align: center;
+  flex: 0 0 100%;
+  width: 80%;
+  height: auto;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  animation: slideIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+}
+
+.carousel-controls a {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
+  padding: 4px;
+}
+
+.carousel-controls a:hover {
+  background-color: #ddd;
+}
+
+.carousel-controls a.active {
+  font-weight: bold;
+  background-color: #ccc;
+}
+
+.badge {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border-radius: 4px;
+  margin: 2px;
+  margin-left: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+.seen-image {
+  width: 700px; 
+  height: 600px; 
+  border-radius: 8px;
+  margin-right: 10px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.image-container{
+  display: flex;
+  justify-content: center;
+}
+</style>
+
 {% endblock %}

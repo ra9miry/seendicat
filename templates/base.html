@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="kz" data-theme="corporate">
+<html lang="ru" data-theme="corporate">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,15 +16,20 @@
 <body>
     <header class="navbar bg-primary text-neutral-content shadow mb-10">
         <div class="flex-1">
-          <a href="" class="btn btn-ghost normal-case text-xl">apteka.kz</a>
-        </div>
+          <div class="logo"><a href="{% url "catalog:homePage" %}" class="btn btn-ghost normal-case text-xl">
+            <img src="/static/images/seendilogo.png" alt=""></a>
+          </div>
+          <div class="name">
+            <h3>SEENDICAT</h3>
+          </div>
+      </div>
         <div class="flex-none">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="{% url "catalog:homePage" %}">Басты бет</a></li>
-                <li><a href="{% url "catalog:store_home" %}">Тауарлар</a></li>
+            <ul class="menu menu-horizontal px-1" >
+                <li class="main"><a href="{% url "catalog:homePage" %}" >Главная страница</a></li>
+                <li class="prod"><a href="{% url "catalog:store_home" %}">Товары</a></li>
                 {% if not user.is_authenticated %}
-                <li><a href="{% url "users:loginPage" %}">Кіру</a></li>
-                <li><a href="{% url "users:signUp" %}">Тіркелу</a></li>
+                <li><a href="{% url "users:loginPage" %}">Войти</a></li>
+                <li><a href="{% url "users:signUp" %}">Регистрация</a></li>
                 {% endif %}
             </ul>
           {% if user.is_authenticated %}
@@ -33,15 +38,15 @@
               <div class="indicator">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                   {% with cart_items=cart|length %}
-                <span class="badge badge-sm indicator-item" id="cart-qty">{{ cart_items }}</span>
+                <span class="badge badge-sm indicator-item" id="cart-qty"  style="color: rgb(255, 255, 255); background-color: black;" >{{ cart_items }}</span>
                   {% endwith %}
 
               </div>
             </label>
             <div tabindex="0" class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
               <div class="card-body">
-                <div class="card-actions">
-                  <a href="{% url 'orders:cart_summary' %}" class="btn btn btn-primary btn-block">Себетті қарау</a>
+                <div class="card-actions" style="font-family: calibri; font-size: 14px; border-radius: 6px; border: none;">
+                  <a href="{% url 'orders:cart_summary' %}" class="btn btn btn-primary btn-block " style="font-family: calibri; font-size: 14px; border-radius: 6px; border: none; color: white;">Корзина</a>
                 </div>
               </div>
             </div>
@@ -54,11 +59,11 @@
                 <img src="{% static './images/logo.png' %}" width="16px" alt="Logo">
               </div>
             </label>
-            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52" style="font-family: calibri; font-size: 14px; border-radius: 6px; border: none;">
               {% if user.is_superuser %}
-              <li><a href="{% url 'admin:index' %}" class="btn btn-primary mb-2">Админ панель</a></li>
+              <li><a href="{% url 'admin:index' %}" class="btn btn-primary mb-2" style="font-family: calibri; font-size: 14px; border-radius: 6px; border: none;">Панель управления админа</a></li>
               {% endif %}
-              <li><a href="{% url 'users:logoutUser' %}" class="btn btn-error">{{ user.username }} : Шығу</a></li>
+              <li><a href="{% url 'users:logoutUser' %}" class="btn btn-error" style="font-family: calibri; font-size: 14px; border-radius: 6px; border: none;">{{ user.username }} : Выйти</a></li>
             </ul>
           </div>
           {% endif %}
@@ -91,5 +96,50 @@
     }
 
     </script>
+
+<style>
+  .navbar{
+    background-color: black;
+    height: 80px;
+  }
+
+  .logo{
+    width: 90px;
+    height: 90px;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    
+  }
+
+  .name{
+    font-family: Verdana;
+    margin-left: 10px;
+  }
+
+  li.main a:active,
+  li.prod a:active {
+    background-color: transparent; 
+}
+
+.span{
+  color: aliceblue; 
+  background-color: black;
+}
+
+  .card-action{
+    font-family: calibri; 
+    font-size: 14px; 
+    border-radius: 6px; 
+    border: none; 
+    color: white;
+  }
+
+  .button:hover{
+    background-color: black;
+  }
+
+  
+</style>
+
 </body>
 </html>

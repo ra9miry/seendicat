@@ -8,7 +8,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = 'Категория'
-        verbose_name_plural = 'Категориялар'
+        verbose_name_plural = 'Категории'
 
     def get_absolute_url(self):
         return reverse("catalog:store_category", args=[self.slug])
@@ -30,8 +30,8 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     class Meta:
-        verbose_name = 'Тауар'
-        verbose_name_plural = 'Тауарлар'
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
         ordering = ('-created',)
 
     def get_absolute_url(self):

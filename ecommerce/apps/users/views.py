@@ -10,9 +10,9 @@ def signUp(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Тіркелу сәтті өтті!")
+            messages.success(request, "Регистрация прошла успешно!")
             return redirect("users:loginPage")
-        messages.error(request, "Тіркелу барысында қателіктер пайда болды")
+        messages.error(request, "Во время регистрации произошла ошибка")
     else:
         form = NewUserForm()
     return render(request, "users/sign-up.html", {
@@ -29,12 +29,12 @@ def loginPage(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Қош келдіңіз, {username}!")
+                messages.info(request, f"Добро пожаловать, {username}!")
                 return redirect("catalog:homePage")
             else:
-                messages.error(request, "Логин немесе пароль қате.")
+                messages.error(request, "Логин или Пароль неверный!")
         else:
-            messages.error(request, "Логин немесе пароль қате.")
+            messages.error(request, "Логин или Пароль неверный!")
     else:
         form = AuthenticationForm()
     return render(request, "users/login.html", {
@@ -44,5 +44,5 @@ def loginPage(request):
 
 def logoutUser(request):
     logout(request)
-    messages.info(request, "Сіз платформадан сәтті шықтыңыз.")
+    messages.info(request, "Вы успешно вышли!")
     return redirect("catalog:homePage")
